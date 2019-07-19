@@ -29,7 +29,7 @@
             android:layout_height="wrap_content" />
 
         <ImageButton
-            android:id="@+id/load"
+            android:id="@+id/info"
             android:layout_width="43dp"
             android:layout_height="51dp"
             android:background="?attr/selectableItemBackgroundBorderless"
