@@ -49,14 +49,10 @@ public class TopBar implements IView {
                         dialog.dismiss();
                     }
                 });
-
                 dialog.setCancelable(true);
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.show();
-
-
-
-                Snackbar.make(backingView.getRootView(), "Reset RegDoll", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                Snackbar.make(backingView.getRootView(), "Show About Info", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
             }
         });
