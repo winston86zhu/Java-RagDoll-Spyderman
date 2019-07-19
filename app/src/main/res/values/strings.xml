@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RagDoll</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="clear">Clear</string>
+    <string name="about">Application: Ragdoll \n\nAuthor: Winston Zhu(20601160) \nStudent ID: h86zhu\n</string>
+</resources>
