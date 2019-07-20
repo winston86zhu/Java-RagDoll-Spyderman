@@ -6,11 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Matrix;
 import android.graphics.RectF;
+import android.view.MotionEvent;
+import android.view.View;
 
 
 import java.util.ArrayList;
 
-public class PartView implements IView {
+public class PartView extends View implements IView {
     public Matrix position_mat;
     public Paint paint;
     public float x_pos;
@@ -22,12 +24,16 @@ public class PartView implements IView {
     public ArrayList<PartView> sub_views;
     public PartView parent = null;
     public Context context;
+    public int type;
+
 
     public PartView (Context c){
+        super(c);
         context = c;
         sub_views = new ArrayList<>();
         paint= new Paint();
         paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLACK);
     }
 
@@ -59,6 +65,26 @@ public class PartView implements IView {
             pv.reset_part();
         }
     }
+
+
+    /*Modify*/
+    public float[] transformPoint(float x, float y) {
+        float point[] = {x, y};
+        Matrix inverse = new Matrix(position_mat);
+        inverse.invert(inverse);
+        inverse.mapPoints(point);
+        return point;
+    }
+
+    public boolean pointInside(float eventX, float eventY) {
+        float point[] = transformPoint(eventX, eventY);
+        return Oval.contains(point[0], point[1]);
+    }
+
+
+    /*Modify*/
+
+
 
     @Override
     public void updateView() {

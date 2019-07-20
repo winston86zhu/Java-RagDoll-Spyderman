@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MainView = findViewById(R.id.main_layout);
-        model = new Model();
+        model = new Model(this);
         tbar = new TopBar(this, model);
     }
 
