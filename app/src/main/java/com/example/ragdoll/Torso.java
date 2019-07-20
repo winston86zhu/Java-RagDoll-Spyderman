@@ -3,6 +3,7 @@ package com.example.ragdoll;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.RectF;
 
 public class Torso extends PartView implements IView {
@@ -19,6 +20,7 @@ public class Torso extends PartView implements IView {
         Oval = new RectF(100, 100, width, height);
         position_mat = new Matrix();
         position_mat.postTranslate(x_pos,y_pos);
+        paint.setStyle(Paint.Style.FILL);
     }
 
 
