@@ -58,6 +58,7 @@ public class RagdollView extends View implements IView {
                         selected.rotate(eventX,eventY);
 
                     }
+                    invalidate();
                 }
                 break;
             case MotionEvent.ACTION_UP:

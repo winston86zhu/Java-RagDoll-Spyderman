@@ -22,35 +22,41 @@ public class HeadView extends PartView implements IView {
         width = 150;
         height = 160;
         //float left, float top, float right, float bottom
-        Oval = new RectF(0, 0, width, height+10);
-        rot_limit = 20;
+        Oval = new RectF(0, 0, width,height+10);
+        rot_limit = 30;
         initDegree = 0;
+        type = 2;
 
 
         /*
          * ********************Set Up init Matrix*******************/
         rot_mat = new Matrix(parent.position_mat);
         // Distance to translate
-        rot_mat.preTranslate((parent.width - width) / 2, -10-height);
+        rot_mat.preTranslate((parent.width - width) / 2, -height);
         position_mat = rot_mat;
-
-        pivot = new Pair<>(parent.x_pos + parent.width / 2, parent.y_pos);
-
-
-
+        pivot = new Pair<>(parent.x_pos + parent.width / 2, parent.y_pos); // neck position
 
     }
 
 
 
-
-
     @Override
     public void rotate(float eventx, float eventy) {
+        savedMatrix = new Matrix(rot_mat);
+        //Refresh Pivot
+        pivot = new Pair<>(parent.x_pos + parent.width / 2, parent.y_pos);
         float dx = eventx - pivot.first;
-        float dy = eventy - pivot.second;
-        double rad = getAngle(dx,dy);
+        float dy = pivot.second - eventy;
+        double rad = Math.atan(dx/dy);
+        //double rad = getAngle(dx,dy);
         float degree = (float)Math.toDegrees(rad);
+
+        if(degree <= -rot_limit){
+            degree = -rot_limit;
+        }
+        if(degree >= rot_limit){
+            degree = rot_limit;
+        }
 
         savedMatrix.postRotate(degree, pivot.first,pivot.second);
         position_mat = savedMatrix;
