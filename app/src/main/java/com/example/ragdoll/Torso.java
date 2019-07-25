@@ -16,7 +16,7 @@ public class Torso extends PartView implements IView {
         width = 200;
         height = 350;
         type = 1;
-        Oval = new RectF(100, 100, width, height);
+        Oval = new RectF(0, 0, width, height);
         position_mat = new Matrix();
         position_mat.postTranslate(x_pos,y_pos);
     }
@@ -36,7 +36,7 @@ public class Torso extends PartView implements IView {
     @Override
     public void drawseg(Canvas canvas) {
         canvas.setMatrix(position_mat);
-        canvas.drawRoundRect(Oval, 70, 70, paint);
+        canvas.drawRoundRect(Oval, 160, 160, paint);
         //float: The x-radius of the oval used to round the corners
         // float: The y-radius of the oval used to round the corners
 
@@ -45,9 +45,10 @@ public class Torso extends PartView implements IView {
         }
     }
 
+    @Override
+    public void rotate(float eventx, float eventy) {
 
-
-
+    }
 
 
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class RagdollView extends View implements IView {
     public ArrayList<PartView> view_set;
     Torso torso;
+    HeadView head;
     public float doll_x;
     public float doll_y;
     public PartView selected;
@@ -19,7 +20,9 @@ public class RagdollView extends View implements IView {
         super(context, att);
         view_set = new ArrayList<>();
         torso = new Torso(context);
+        head = new HeadView(context,torso);
         view_set.add(torso);
+        view_set.add(head);
     }
 
 
@@ -51,6 +54,10 @@ public class RagdollView extends View implements IView {
                     invalidate();
                 } else {
                     //Rotate
+                    if(selected.pointInside(eventX,eventY)){
+                        selected.rotate(eventX,eventY);
+
+                    }
                 }
                 break;
             case MotionEvent.ACTION_UP:
