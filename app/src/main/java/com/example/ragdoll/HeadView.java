@@ -32,9 +32,9 @@ public class HeadView extends PartView implements IView {
          * ********************Set Up init Matrix*******************/
         rot_mat = new Matrix(parent.position_mat);
         // Distance to translate
-        rot_mat.preTranslate((parent.width - width) / 2, -height);
+        rot_mat.postTranslate((parent.width - width) / 2, -height-10);
         position_mat = rot_mat;
-        pivot = new Pair<>(parent.x_pos + parent.width / 2, parent.y_pos); // neck position
+        //pivot = new Pair<>(parent.x_pos + parent.width / 2, parent.y_pos); // neck position
 
     }
 
@@ -42,8 +42,11 @@ public class HeadView extends PartView implements IView {
 
     @Override
     public void rotate(float eventx, float eventy) {
-        savedMatrix = new Matrix(rot_mat);
+        //Refresh Head
+        rot_mat = new Matrix(parent.position_mat);
+        rot_mat.postTranslate((parent.width - width) / 2, -height-10);
         //Refresh Pivot
+
         pivot = new Pair<>(parent.x_pos + parent.width / 2, parent.y_pos);
         float dx = eventx - pivot.first;
         float dy = pivot.second - eventy;
@@ -58,8 +61,8 @@ public class HeadView extends PartView implements IView {
             degree = rot_limit;
         }
 
-        savedMatrix.postRotate(degree, pivot.first,pivot.second);
-        position_mat = savedMatrix;
+        rot_mat.postRotate(degree, pivot.first,pivot.second);
+        position_mat = rot_mat;
 
     }
 
