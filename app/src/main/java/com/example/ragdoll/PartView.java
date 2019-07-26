@@ -21,6 +21,7 @@ public abstract class PartView extends View implements IView {
     public float height;
     RectF Oval;
     public float initDegree = 0;
+    public float degree;
     public float curDegree = 0;
     public ArrayList<PartView> sub_views;
     public PartView parent = null;
@@ -32,6 +33,7 @@ public abstract class PartView extends View implements IView {
         super(c);
         context = c;
         sub_views = new ArrayList<>();
+        degree = initDegree;
         paint= new Paint();
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);

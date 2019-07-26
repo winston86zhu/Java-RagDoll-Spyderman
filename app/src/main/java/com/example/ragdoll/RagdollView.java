@@ -16,6 +16,8 @@ public class RagdollView extends View implements IView {
     public HeadView head;
     public U_ARM left_arm;
     public U_ARM right_arm;
+    public L_ARM left_arm_low;
+    public L_ARM right_arm_low;
     public float doll_x;
     public float doll_y;
     public PartView selected;
@@ -27,11 +29,17 @@ public class RagdollView extends View implements IView {
         head = new HeadView(context,torso);
         left_arm = new U_ARM(context, torso, true);
         right_arm = new U_ARM(context, torso, false);
+        left_arm_low = new L_ARM(context, left_arm, true);
+        right_arm_low = new L_ARM(context, right_arm, false);
+
+
 
         view_set.add(head);
         view_set.add(left_arm);
         view_set.add(right_arm);
         view_set.add(torso);
+        view_set.add(left_arm_low);
+        view_set.add(right_arm_low);
 
     }
 
