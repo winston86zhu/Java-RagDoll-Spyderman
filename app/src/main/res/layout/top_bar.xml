@@ -25,13 +25,13 @@
 
         <Space
             android:id="@+id/top_bar_space"
-            android:layout_width="200dp"
+            android:layout_width="1030dp"
             android:layout_height="wrap_content" />
 
         <ImageButton
             android:id="@+id/info"
-            android:layout_width="43dp"
-            android:layout_height="51dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@android:string/selectAll"
             android:src="@android:drawable/ic_menu_info_details"
@@ -39,8 +39,8 @@
 
         <ImageButton
             android:id="@+id/clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/clear"
             android:src="@android:drawable/ic_menu_close_clear_cancel" />

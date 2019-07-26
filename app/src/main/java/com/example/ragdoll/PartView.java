@@ -12,7 +12,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-public class PartView extends View implements IView {
+public abstract class PartView extends View implements IView {
     public Matrix position_mat;
     public Paint paint;
     public float x_pos;
@@ -21,6 +21,8 @@ public class PartView extends View implements IView {
     public float height;
     RectF Oval;
     public float initDegree = 0;
+    public float degree;
+    public float curDegree = 0;
     public ArrayList<PartView> sub_views;
     public PartView parent = null;
     public Context context;
@@ -31,9 +33,10 @@ public class PartView extends View implements IView {
         super(c);
         context = c;
         sub_views = new ArrayList<>();
+        degree = initDegree;
         paint= new Paint();
         paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLACK);
     }
 
@@ -83,6 +86,7 @@ public class PartView extends View implements IView {
 
 
     /*Modify*/
+    public abstract void rotate(float eventx, float eventy);
 
 
 
