@@ -54,5 +54,10 @@ public class Torso extends PartView implements IView {
 
     }
 
+    @Override
+    public void rotate(float degree) {
+
+    }
+
 
 }

@@ -24,6 +24,7 @@ public abstract class PartView extends View implements IView {
     public float y_pos;
     public float width;
     public float height;
+    public float length;
     RectF Oval;
     public float initDegree = 0;
     public float degree;
@@ -41,7 +42,7 @@ public abstract class PartView extends View implements IView {
         degree = initDegree;
         paint= new Paint();
         paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.FILL);
+        paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLACK);
     }
 
@@ -98,6 +99,8 @@ public abstract class PartView extends View implements IView {
 
     /*Modify*/
     public abstract void rotate(float eventx, float eventy);
+
+    public abstract void rotate(float degree);
 
 
 

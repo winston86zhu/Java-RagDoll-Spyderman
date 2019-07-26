@@ -7,7 +7,7 @@ import android.util.Pair;
 
 public class U_ARM extends PartView implements IView {
     float rot_limit;
-    public Matrix rot_mat = new Matrix();
+    public Matrix rot_mat;
     private Matrix savedMatrix = new Matrix(rot_mat);
     Pair<Float, Float> pivot;
     public boolean left_right;
@@ -20,6 +20,7 @@ public class U_ARM extends PartView implements IView {
         height = 250;
         //float left, float top, float right, float bottom
         Oval = new RectF(-40, 0, width,height);
+        length = (float)Math.sqrt((width * width + height * height));
         rot_limit = 30;
         this.left_right = left_right;
         if(left_right) {
@@ -109,7 +110,13 @@ public class U_ARM extends PartView implements IView {
         rot_mat.postRotate(degree, pivot.first,pivot.second);
         //position_mat.preConcat(rot_mat);
         position_mat = rot_mat;
+        sub_views.get(0).rotate(initDegree);
 
+
+    }
+
+    @Override
+    public void rotate(float degree) {
 
     }
 }

@@ -19,8 +19,8 @@ public class HeadView extends PartView implements IView {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
-        width = 150;
-        height = 160;
+        width = 200;
+        height = 200;
         //float left, float top, float right, float bottom
         Oval = new RectF(0, 0, width,height);
         rot_limit = 50;
@@ -69,6 +69,10 @@ public class HeadView extends PartView implements IView {
         rot_mat.postRotate(degree, pivot.first,pivot.second);
         position_mat = rot_mat;
 
+    }
+
+    @Override
+    public void rotate(float degree) {
     }
 
     private double getAngle(double x, double y) {
