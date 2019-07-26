@@ -8,10 +8,14 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.min;
+
 public class RagdollView extends View implements IView {
     public ArrayList<PartView> view_set;
-    Torso torso;
-    HeadView head;
+    public Torso torso;
+    public HeadView head;
+    public U_ARM left_arm;
+    public U_ARM right_arm;
     public float doll_x;
     public float doll_y;
     public PartView selected;
@@ -21,8 +25,14 @@ public class RagdollView extends View implements IView {
         view_set = new ArrayList<>();
         torso = new Torso(context);
         head = new HeadView(context,torso);
-        view_set.add(torso);
+        left_arm = new U_ARM(context, torso, true);
+        right_arm = new U_ARM(context, torso, false);
+
         view_set.add(head);
+        view_set.add(left_arm);
+        view_set.add(right_arm);
+        view_set.add(torso);
+
     }
 
 
@@ -47,7 +57,9 @@ public class RagdollView extends View implements IView {
             case MotionEvent.ACTION_MOVE:
                 if(selected.type == 1) {
                     float dx = eventX - doll_x;
+
                     float dy = eventY - doll_y;
+
                     ((Torso)selected).translate(dx, dy);
                     doll_x = eventX;
                     doll_y = eventY;

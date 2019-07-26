@@ -6,14 +6,14 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 
 public class Torso extends PartView implements IView {
-    float initX = 435;
-    float initY = 330;
+    float initX = 500;
+    float initY = 500;
 
     public Torso(Context c) {
         super(c);
         x_pos = initX;
         y_pos = initY;
-        width = 200;
+        width = 250;
         height = 350;
         type = 1;
         Oval = new RectF(0, 0, width, height);
@@ -28,6 +28,8 @@ public class Torso extends PartView implements IView {
         position_mat.postConcat(translate); //update self position
         for (PartView child : sub_views) {
             child.translate(translate); //update children position
+            child.x_pos += dx;
+            child.y_pos += dy;
         }
         x_pos += dx;
         y_pos += dy;

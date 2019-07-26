@@ -10,16 +10,18 @@ public class U_ARM extends PartView implements IView {
     public Matrix rot_mat = new Matrix();
     private Matrix savedMatrix = new Matrix(rot_mat);
     Pair<Float, Float> pivot;
+    public boolean left_right;
 
     public U_ARM(Context c, PartView pv, boolean left_right) {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
         width = 40;
-        height = 160;
+        height = 250;
         //float left, float top, float right, float bottom
-        Oval = new RectF(0, 0, width,height);
+        Oval = new RectF(-40, 0, width,height);
         rot_limit = 30;
+        this.left_right = left_right;
         if(left_right) {
             initDegree = 30;
         } else {
@@ -27,19 +29,75 @@ public class U_ARM extends PartView implements IView {
         }
         type = 3;
 
+
         /*
          * ********************Set Up init Matrix*******************/
         rot_mat = new Matrix();
-        if(left_right == true) {
-            pivot = new Pair<>(parent.x_pos, parent.y_pos + 20); // neck position
-        } else {
-            pivot = new Pair<>(parent.x_pos + parent.width, parent.y_pos + 20); // neck position
-        }
+        pivot = getPivot();
 
+
+        rot_mat.postRotate(initDegree, pivot.first, pivot.second);
+        rot_mat.preTranslate(pivot.first, pivot.second);
+
+        position_mat = rot_mat;
+
+    }
+
+
+    public Pair<Float,Float> getPivot(){
+        Pair<Float, Float> pivotq;
+        if(left_right) {
+            pivotq = new Pair<>(parent.x_pos + 15, parent.y_pos + 60); // neck position
+        } else {
+            pivotq = new Pair<>(parent.x_pos + parent.width - 15, parent.y_pos + 60); // neck position
+        }
+        return pivotq;
     }
 
     @Override
     public void rotate(float eventx, float eventy) {
+        //Refresh Pivot
+//        float point[] = transformPoint(eventx, eventy);
+//        float dx = 0 - point[0];
+//        float dy = point[1] - 0;
+//        double rad = Math.atan(dx/dy);
+//        float degree = (float)Math.toDegrees(rad);
+//
+//
+//        pivot = getPivot();
+//        rot_mat = new Matrix();
+//        rot_mat.postRotate(degree, 0 , 0);
+//        position_mat.preConcat(rot_mat);
+
+        pivot = getPivot();
+        rot_mat = new Matrix();
+        rot_mat.preTranslate(pivot.first, pivot.second);
+
+
+        float dx = eventx - pivot.first;
+        float dy = pivot.second - eventy;
+        double rad;
+
+            rad = Math.atan(dx / dy);
+            float degree;
+        if(dy > 0 && dx < 0) {
+            //need change
+            rad = Math.atan(-dy / dx);
+            degree = (float) Math.toDegrees(rad);
+            degree += 90;
+        } else if (dy > 0 && dx > 0){
+            rad = Math.atan(dx / dy);
+            degree = (float) Math.toDegrees(rad);
+            degree += 180;
+        }
+        else {
+            degree = (float) Math.toDegrees(rad);
+
+        }
+        rot_mat.postRotate(degree, pivot.first,pivot.second);
+        //position_mat.preConcat(rot_mat);
+        position_mat = rot_mat;
+
 
     }
 }

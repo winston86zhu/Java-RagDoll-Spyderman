@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 
 public class HeadView extends PartView implements IView {
     float rot_limit;
-    public Matrix rot_mat = new Matrix();
+    public Matrix rot_mat;
     private Matrix savedMatrix = new Matrix(rot_mat);
     Pair<Float, Float> pivot;
 
@@ -23,7 +23,7 @@ public class HeadView extends PartView implements IView {
         height = 160;
         //float left, float top, float right, float bottom
         Oval = new RectF(0, 0, width,height+10);
-        rot_limit = 30;
+        rot_limit = 50;
         initDegree = 0;
         type = 2;
 
@@ -32,7 +32,12 @@ public class HeadView extends PartView implements IView {
          * ********************Set Up init Matrix*******************/
         rot_mat = new Matrix(parent.position_mat);
         // Distance to translate
-        rot_mat.postTranslate((parent.width - width) / 2, -height-10);
+        rot_mat.postTranslate((parent.width - width) / 2, -(height + 10));
+        x_pos = parent.x_pos;
+        x_pos += (parent.width - width) / 2;
+        y_pos = parent.y_pos;
+        y_pos -= height;
+
         position_mat = rot_mat;
         //pivot = new Pair<>(parent.x_pos + parent.width / 2, parent.y_pos); // neck position
 
