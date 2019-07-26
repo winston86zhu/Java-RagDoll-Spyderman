@@ -18,6 +18,8 @@ public class RagdollView extends View implements IView {
     public U_ARM right_arm;
     public L_ARM left_arm_low;
     public L_ARM right_arm_low;
+    public Hand left_hand;
+    public Hand right_hand;
     public float doll_x;
     public float doll_y;
     public PartView selected;
@@ -31,15 +33,19 @@ public class RagdollView extends View implements IView {
         right_arm = new U_ARM(context, torso, false);
         left_arm_low = new L_ARM(context, left_arm, true);
         right_arm_low = new L_ARM(context, right_arm, false);
+        left_hand = new Hand(context, left_arm_low, true);
+        right_hand = new Hand(context, right_arm_low, false);
 
 
-
+        view_set.add(left_hand);
+        view_set.add(right_hand);
+        view_set.add(left_arm_low);
+        view_set.add(right_arm_low);
         view_set.add(head);
         view_set.add(left_arm);
         view_set.add(right_arm);
         view_set.add(torso);
-        view_set.add(left_arm_low);
-        view_set.add(right_arm_low);
+
 
     }
 
@@ -73,11 +79,7 @@ public class RagdollView extends View implements IView {
                     doll_y = eventY;
                     invalidate();
                 } else {
-                    //Rotate
-                    if(selected.pointInside(eventX,eventY)){
-                        selected.rotate(eventX,eventY);
-
-                    }
+                    selected.rotate(eventX,eventY);
                     invalidate();
                 }
                 break;

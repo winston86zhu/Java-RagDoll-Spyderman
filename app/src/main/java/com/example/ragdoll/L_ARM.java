@@ -28,12 +28,10 @@ public class L_ARM extends PartView implements IView {
         type = 4;
         degree = initDegree;
         rotate_diff = degree - parent.degree;
+        length = (float)Math.sqrt((width * width + height * height));
 
-        if(left_right) {
-            x_pos = parent.x_pos;
-        } else {
-            x_pos = parent.x_pos + parent.width;
-        }
+        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))));
+        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
 
         /*
          * ********************Set Up init Matrix*******************/
@@ -54,13 +52,8 @@ public class L_ARM extends PartView implements IView {
 
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
-        if(left_right) {
-            pivotq = new Pair<>((parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree)))),
-                    (parent.y_pos ) + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)))));
-        } else {
-            pivotq = new Pair<>((parent.x_pos )  - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree)))),
-                    (parent.y_pos ) + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))))); // neck position
-        }
+            pivotq = new Pair<>((parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))))
+                    ,parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)))));
         return pivotq;
     }
 
@@ -90,6 +83,7 @@ public class L_ARM extends PartView implements IView {
         local.postTranslate(0, parent.height);
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
+        sub_views.get(0).rotate(degree);
 
 
 
@@ -102,6 +96,6 @@ public class L_ARM extends PartView implements IView {
         local.postTranslate(0, parent.height);
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
-       // sub_views.get(0).rotate(degree);
+        sub_views.get(0).rotate(degree);
     }
 }

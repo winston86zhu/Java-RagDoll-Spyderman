@@ -7,8 +7,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 public class Torso extends PartView implements IView {
-    float initX = 500;
-    float initY = 500;
+    float initX = 1200;
+    float initY = 800;
 
     public Torso(Context c) {
         super(c);

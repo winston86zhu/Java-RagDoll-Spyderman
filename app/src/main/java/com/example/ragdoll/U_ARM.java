@@ -44,12 +44,10 @@ public class U_ARM extends PartView implements IView {
         rot_mat = new Matrix();
         pivot = getPivot();
 
-
         rot_mat.postRotate(initDegree, pivot.first, pivot.second);
         rot_mat.preTranslate(pivot.first, pivot.second);
 
         position_mat = rot_mat;
-
     }
 
 
