@@ -1,15 +1,20 @@
 package com.example.ragdoll;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 import android.view.View;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class PartView extends View implements IView {
@@ -42,7 +47,13 @@ public abstract class PartView extends View implements IView {
 
     public void drawseg(Canvas canvas) {
         canvas.setMatrix(position_mat);
-        canvas.drawOval(Oval, paint);
+        Bitmap kangoo = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.dora_head);
+        if(type == 2){
+            canvas.drawBitmap(kangoo,null, Oval,paint);
+        } else {
+            canvas.drawOval(Oval, paint);
+        }
         for (PartView sub : sub_views) {
             sub.drawseg(canvas);
         }
