@@ -23,11 +23,7 @@ public class L_ARM extends PartView implements IView {
         Oval = new RectF(-20, 0, width / 2,height);
         rot_limit = 30;
         this.left_right = left_right;
-        if(left_right) {
-            initDegree = 30;
-        } else {
-            initDegree = -30;
-        }
+        initDegree = parent.initDegree;
         type = 4;
 
         if(left_right) {
@@ -38,13 +34,20 @@ public class L_ARM extends PartView implements IView {
 
         /*
          * ********************Set Up init Matrix*******************/
-        savedMatrix = new Matrix();
-        position_mat = new Matrix(parent.position_mat);
-        Matrix l_trans = new Matrix();
-        l_trans.postTranslate(0, parent.height);
-        position_mat.preConcat(l_trans);
+//        savedMatrix = new Matrix();
+//        position_mat = new Matrix(parent.position_mat);
+//        Matrix l_trans = new Matrix();
+//        l_trans.postTranslate(0, parent.height);
+//        position_mat.preConcat(l_trans);
 
+        rot_mat = new Matrix();
         pivot = getPivot();
+
+        rot_mat.preTranslate(pivot.first, pivot.second);
+        rot_mat.postRotate(initDegree, pivot.first, pivot.second);
+
+
+        position_mat = rot_mat;
 
 
     }
@@ -53,9 +56,11 @@ public class L_ARM extends PartView implements IView {
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
         if(left_right) {
-            pivotq = new Pair<>(parent.x_pos , parent.y_pos + parent.height); // neck position
+            pivotq = new Pair<>((parent.x_pos + 40) - ((float)(parent.height * Math.tan(Math.toRadians(parent.degree)))),
+                    (parent.y_pos - 60) + parent.height);
         } else {
-            pivotq = new Pair<>(parent.x_pos, parent.y_pos + parent.height); // neck position
+            pivotq = new Pair<>((parent.x_pos - 40)  - ((float)(parent.height * Math.tan(Math.toRadians(parent.degree)))),
+                    (parent.y_pos - 60) + parent.height); // neck position
         }
         return pivotq;
     }

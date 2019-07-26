@@ -27,6 +27,7 @@ public class U_ARM extends PartView implements IView {
         } else {
             initDegree = -30;
         }
+        degree = initDegree;
         type = 3;
 
         if(left_right) {
@@ -54,9 +55,9 @@ public class U_ARM extends PartView implements IView {
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
         if(left_right) {
-            pivotq = new Pair<>(parent.x_pos + 15, parent.y_pos + 60); // neck position
+            pivotq = new Pair<>(x_pos, y_pos); // neck position
         } else {
-            pivotq = new Pair<>(parent.x_pos + parent.width - 15, parent.y_pos + 60); // neck position
+            pivotq = new Pair<>(x_pos, y_pos); // neck position
         }
         return pivotq;
     }
