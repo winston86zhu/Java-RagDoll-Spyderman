@@ -110,8 +110,7 @@ public class U_ARM extends PartView implements IView {
         rot_mat.postRotate(degree, pivot.first,pivot.second);
         //position_mat.preConcat(rot_mat);
         position_mat = rot_mat;
-        sub_views.get(0).rotate(initDegree);
-
+        sub_views.get(0).rotate(degree);
 
     }
 

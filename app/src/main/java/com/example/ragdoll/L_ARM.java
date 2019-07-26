@@ -8,7 +8,7 @@ import android.util.Pair;
 public class L_ARM extends PartView implements IView {
 
     float rot_limit;
-    public Matrix rot_mat = new Matrix();
+    public Matrix rot_mat;
     private Matrix savedMatrix = new Matrix();
     Pair<Float, Float> pivot;
     public boolean left_right;
@@ -18,11 +18,11 @@ public class L_ARM extends PartView implements IView {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
-        width = 40;
+        width = 60;
         height = 150;
         //float left, float top, float right, float bottom
-        Oval = new RectF(-20, 0, width / 2,height);
-        rot_limit = 30;
+        Oval = new RectF(-30, 0, 30,height);
+        rot_limit = 135;
         this.left_right = left_right;
         initDegree = parent.initDegree;
         type = 4;
@@ -73,9 +73,10 @@ public class L_ARM extends PartView implements IView {
         double rad = Math.atan(dx/dy);
         float add_deg = (float)Math.toDegrees(rad);
         float temp_deg = degree + add_deg;
-//        if(temp_deg>=rot_limit || temp_deg <= -rot_limit) {
-//            add_deg = 0;
-//        }
+        System.out.println(temp_deg);
+        if((temp_deg - initDegree )>= rot_limit || (temp_deg - initDegree ) <= -rot_limit) {
+            add_deg = 0;
+        }
 
 
         degree += add_deg;
@@ -90,41 +91,6 @@ public class L_ARM extends PartView implements IView {
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
 
-//
-//
-//        pivot = getPivot();
-//        rot_mat = new Matrix();
-//        rot_mat.postRotate(degree, 0 , 0);
-//        position_mat.preConcat(rot_mat);
-
-
-
-        //rot_mat.preTranslate(pivot.first, pivot.second);
-
-
-//        float dx = eventx - pivot.first;
-//        float dy = pivot.second - eventy;
-//        double rad;
-//
-//        rad = Math.atan(dx / dy);
-//        float degree;
-//        if(dy > 0 && dx < 0) {
-//            //need change
-//            rad = Math.atan(-dy / dx);
-//            degree = (float) Math.toDegrees(rad);
-//            degree += 90;
-//        } else if (dy > 0 && dx > 0){
-//            rad = Math.atan(dx / dy);
-//            degree = (float) Math.toDegrees(rad);
-//            degree += 180;
-//        }
-//        else {
-//            degree = (float) Math.toDegrees(rad);
-//
-//        }
-//        rot_mat.postRotate(degree, pivot.first,pivot.second);
-//        //position_mat.preConcat(rot_mat);
-//        position_mat = rot_mat;
 
 
     }
@@ -136,5 +102,6 @@ public class L_ARM extends PartView implements IView {
         local.postTranslate(0, parent.height);
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
+       // sub_views.get(0).rotate(degree);
     }
 }
