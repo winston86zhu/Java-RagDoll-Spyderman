@@ -25,6 +25,8 @@ public class RagdollView extends View implements IView {
     public Upper_Leg right_leg_up;
     public Calf left_calf;
     public Calf right_calf;
+    public Foot left_foot;
+    public Foot right_foot;
     public float doll_x;
     public float doll_y;
     public PartView selected;
@@ -42,10 +44,13 @@ public class RagdollView extends View implements IView {
         right_hand = new Hand(context, right_arm_low, false);
         left_leg_up = new Upper_Leg(context, torso, true);
         right_leg_up = new Upper_Leg(context,torso, false);
-
         left_calf = new Calf (context,left_leg_up, true);
         right_calf = new Calf(context,right_leg_up, false);
+        left_foot = new Foot(context,left_calf, true);
+        right_foot = new Foot(context,right_calf, false);
 
+        view_set.add(left_foot);
+        view_set.add(right_foot);
         view_set.add(left_calf);
         view_set.add(right_calf);
         view_set.add(left_hand);

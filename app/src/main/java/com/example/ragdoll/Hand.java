@@ -69,7 +69,6 @@ public class Hand extends PartView implements IView {
 
 
         degree += add_deg;
-        rotate_diff = degree - parent.degree;
         rot_mat = new Matrix();
         rot_mat.postRotate(add_deg, 0,0);
         savedMatrix.postConcat(rot_mat);

@@ -40,10 +40,9 @@ public class Torso extends PartView implements IView {
     @Override
     public void drawseg(Canvas canvas) {
         canvas.setMatrix(position_mat);
-        canvas.drawRoundRect(Oval, 160, 160, paint);
+        canvas.drawRoundRect(Oval, 160, 200, paint);
         //float: The x-radius of the oval used to round the corners
         // float: The y-radius of the oval used to round the corners
-
         for (PartView c : sub_views) {
             c.drawseg(canvas);
         }

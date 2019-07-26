@@ -73,9 +73,7 @@ public class Calf extends PartView implements IView {
         local.postTranslate(0, parent.height);
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
-        //sub_views.get(0).rotate(degree);
-
-
+        sub_views.get(0).rotate(degree);
 
     }
 
@@ -86,6 +84,6 @@ public class Calf extends PartView implements IView {
         local.postTranslate(0, parent.height);
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
-        //sub_views.get(0).rotate(degree);
+        sub_views.get(0).rotate(degree);
     }
 }
