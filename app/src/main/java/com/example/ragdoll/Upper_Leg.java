@@ -5,38 +5,38 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.util.Pair;
 
-public class U_ARM extends PartView implements IView {
+public class Upper_Leg extends PartView implements IView {
     float rot_limit;
     public Matrix rot_mat;
     private Matrix savedMatrix = new Matrix(rot_mat);
     Pair<Float, Float> pivot;
     public boolean left_right;
 
-    public U_ARM(Context c, PartView pv, boolean left_right) {
+    public Upper_Leg(Context c, PartView pv, boolean left_right) {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
         width = 40;
-        height = 250;
+        height = 200;
         //float left, float top, float right, float bottom
         Oval = new RectF(-40, 0, width,height);
         length = (float)Math.sqrt((width * width + height * height));
-        rot_limit = 30;
+        rot_limit = 90;
         this.left_right = left_right;
         if(left_right) {
-            initDegree = 30;
+            initDegree = 10;
         } else {
-            initDegree = -30;
+            initDegree = -10;
         }
         degree = initDegree;
-        type = 3;
+        type = 6;
 
         if(left_right) {
-            x_pos = parent.x_pos + 15;
+            x_pos = parent.x_pos + 60;
         } else {
-            x_pos = parent.x_pos + parent.width - 15;
+            x_pos = parent.x_pos + parent.width - 60;
         }
-        y_pos = parent.y_pos + 60;
+        y_pos = parent.y_pos + parent.height - 60;
 
 
         /*
@@ -46,36 +46,21 @@ public class U_ARM extends PartView implements IView {
 
         rot_mat.postRotate(initDegree, pivot.first, pivot.second);
         rot_mat.preTranslate(pivot.first, pivot.second);
-
         position_mat = rot_mat;
     }
-
 
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
         if(left_right) {
-            pivotq = new Pair<>(parent.x_pos + 15, parent.y_pos + 60); // neck position
+            pivotq = new Pair<>(parent.x_pos + 60, parent.y_pos + parent.height - 60); // neck position
         } else {
-            pivotq = new Pair<>(parent.x_pos + parent.width - 15, parent.y_pos + 60); // neck position
+            pivotq = new Pair<>(parent.x_pos + parent.width - 60, parent.y_pos + parent.height - 60); // neck position
         }
         return pivotq;
     }
 
     @Override
     public void rotate(float eventx, float eventy) {
-        //Refresh Pivot
-//        float point[] = transformPoint(eventx, eventy);
-//        float dx = 0 - point[0];
-//        float dy = point[1] - 0;
-//        double rad = Math.atan(dx/dy);
-//        float degree = (float)Math.toDegrees(rad);
-//
-//
-//        pivot = getPivot();
-//        rot_mat = new Matrix();
-//        rot_mat.postRotate(degree, 0 , 0);
-//        position_mat.preConcat(rot_mat);
-
         pivot = getPivot();
         rot_mat = new Matrix();
         rot_mat.preTranslate(pivot.first, pivot.second);
@@ -85,22 +70,13 @@ public class U_ARM extends PartView implements IView {
         float dy = pivot.second - eventy;
         double rad;
 
-            rad = Math.atan(dx / dy);
-           // float degree;
-        if(dy > 0 && dx < 0) {
-            //need change
-            rad = Math.atan(-dy / dx);
-            degree = (float) Math.toDegrees(rad);
-            degree += 90;
-        } else if (dy > 0 && dx > 0){
-            rad = Math.atan(dx / dy);
-            degree = (float) Math.toDegrees(rad);
-            degree += 180;
-        } else if (dy < 0 && dx > 0){
+        rad = Math.atan(dx / dy);
+        // float degree;
+        if (dy < 0 && dx > 0){
             degree = (float) Math.toDegrees(rad);
             degree += 360;
         }
-        else {
+        else if(dy < 0 && dx < 0){
             degree = (float) Math.toDegrees(rad);
 
         }

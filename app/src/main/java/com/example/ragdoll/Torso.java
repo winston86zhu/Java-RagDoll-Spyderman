@@ -8,13 +8,13 @@ import android.graphics.RectF;
 
 public class Torso extends PartView implements IView {
     float initX = 1200;
-    float initY = 800;
+    float initY = 600;
 
     public Torso(Context c) {
         super(c);
         x_pos = initX;
         y_pos = initY;
-        width = 250;
+        width = 300;
         height = 350;
         type = 1;
         Oval = new RectF(0, 0, width, height);

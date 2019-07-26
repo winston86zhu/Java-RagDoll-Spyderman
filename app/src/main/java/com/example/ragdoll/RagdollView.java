@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 import static java.lang.Math.min;
@@ -20,6 +21,10 @@ public class RagdollView extends View implements IView {
     public L_ARM right_arm_low;
     public Hand left_hand;
     public Hand right_hand;
+    public Upper_Leg left_leg_up;
+    public Upper_Leg right_leg_up;
+    public Calf left_calf;
+    public Calf right_calf;
     public float doll_x;
     public float doll_y;
     public PartView selected;
@@ -35,8 +40,14 @@ public class RagdollView extends View implements IView {
         right_arm_low = new L_ARM(context, right_arm, false);
         left_hand = new Hand(context, left_arm_low, true);
         right_hand = new Hand(context, right_arm_low, false);
+        left_leg_up = new Upper_Leg(context, torso, true);
+        right_leg_up = new Upper_Leg(context,torso, false);
 
+        left_calf = new Calf (context,left_leg_up, true);
+        right_calf = new Calf(context,right_leg_up, false);
 
+        view_set.add(left_calf);
+        view_set.add(right_calf);
         view_set.add(left_hand);
         view_set.add(right_hand);
         view_set.add(left_arm_low);
@@ -44,6 +55,8 @@ public class RagdollView extends View implements IView {
         view_set.add(head);
         view_set.add(left_arm);
         view_set.add(right_arm);
+        view_set.add(left_leg_up);
+        view_set.add(right_leg_up);
         view_set.add(torso);
 
 
