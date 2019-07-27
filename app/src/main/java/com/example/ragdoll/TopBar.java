@@ -11,23 +11,29 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class TopBar implements IView {
+public class TopBar extends View implements IView {
     public Context context;
     public View backingView;
     public Model model;
+    public ImageButton clearButton;
+    public ImageButton aboutbutton;
+    public RagdollView rdv;
 
-    public TopBar(Context c, Model m) {
+
+    public TopBar( Context c, Model m) {
+        super(c);
         model = m ;
         context = c;
         this.backingView = ((Activity) c).findViewById(R.id.act_bar);
-
-        ImageButton clearButton = (ImageButton)this.backingView.findViewById(R.id.clear);
-        ImageButton aboutbutton = (ImageButton)this.backingView.findViewById(R.id.info);
+        rdv = (RagdollView)(findViewById(R.id.ragdollView));
+         clearButton = (ImageButton)this.backingView.findViewById(R.id.clear);
+         aboutbutton = (ImageButton)this.backingView.findViewById(R.id.info);
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // model.reset_doll();
+                //rdv.reset();
                 Snackbar.make(backingView.getRootView(), "Reset RegDoll", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                // model.notifyViews();
             }

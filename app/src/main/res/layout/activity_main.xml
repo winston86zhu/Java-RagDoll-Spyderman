@@ -9,16 +9,18 @@
     tools:context=".MainActivity">
 
 
+    <com.example.ragdoll.RagdollView
+        android:id="@+id/ragdollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <include
         layout="@layout/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible" />
 
-    <com.example.ragdoll.RagdollView
-        android:id="@+id/ragdollView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
 
 </RelativeLayout>

@@ -30,9 +30,24 @@ public class RagdollView extends View implements IView {
     public float doll_x;
     public float doll_y;
     public PartView selected;
+    public Context context;
 
     public RagdollView(Context context, AttributeSet att) {
         super(context, att);
+        init_all(context);
+
+        add_all();
+
+    }
+
+    public void reset(){
+        view_set.clear();
+        init_all(context);
+        add_all();
+        invalidate();
+    }
+
+    public void init_all(Context context){
         view_set = new ArrayList<>();
         torso = new Torso(context);
         head = new HeadView(context,torso);
@@ -48,7 +63,10 @@ public class RagdollView extends View implements IView {
         right_calf = new Calf(context,right_leg_up, false);
         left_foot = new Foot(context,left_calf, true);
         right_foot = new Foot(context,right_calf, false);
+        this.context = context;
+    }
 
+    public void add_all(){
         view_set.add(left_foot);
         view_set.add(right_foot);
         view_set.add(left_calf);
@@ -63,10 +81,7 @@ public class RagdollView extends View implements IView {
         view_set.add(left_leg_up);
         view_set.add(right_leg_up);
         view_set.add(torso);
-
-
     }
-
 
 
     @Override

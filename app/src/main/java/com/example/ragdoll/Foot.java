@@ -29,7 +29,7 @@ public class Foot extends PartView implements IView {
         if(left_right) {
             initDegree = 90 + parent.degree;
         } else {
-            initDegree = 90 + parent.degree;
+            initDegree = -90 + parent.degree;
         }
         degree = initDegree;
 
@@ -45,7 +45,11 @@ public class Foot extends PartView implements IView {
         position_mat = rot_mat;
 
         rot_mat = new Matrix();
-        rot_mat.postRotate(90, 0,0);
+        if(left_right) {
+            rot_mat.postRotate(90, 0, 0);
+        } else {
+            rot_mat.postRotate(-90, 0, 0);
+        }
         savedMatrix.postConcat(rot_mat);
     }
 
@@ -70,42 +74,6 @@ public class Foot extends PartView implements IView {
 
     @Override
     public void rotate(float eventx, float eventy) {
-        //Refresh Pivot
-//        pivot = getPivot();
-//        rot_mat = new Matrix();
-//        rot_mat.preTranslate(pivot.first, pivot.second);
-//
-//
-//        float dx = eventx - pivot.first;
-//        float dy = pivot.second - eventy;
-//        double rad;
-//        float ori_deg = degree;
-//        rad = Math.atan(dx / dy);
-//        if(dy > 0 && dx < 0) {
-//            //need change
-//            rad = Math.atan(-dy / dx);
-//            degree = (float) Math.toDegrees(rad);
-//            degree += 90;
-//        } else if (dy > 0 && dx > 0){
-//            rad = Math.atan(dx / dy);
-//            degree = (float) Math.toDegrees(rad);
-//            degree += 180;
-//        } else if (dy < 0 && dx > 0){
-//            degree = (float) Math.toDegrees(rad);
-//            degree += 360;
-//        }
-//        else {
-//            degree = (float) Math.toDegrees(rad);
-//
-//        }
-//        if(degree > initDegree + rot_limit){
-//            degree = initDegree + rot_limit;
-//        } else if (degree < initDegree - rot_limit){
-//            degree = initDegree - rot_limit;
-//        }
-//
-//        rot_mat.postRotate(degree, pivot.first,pivot.second);
-//        position_mat = rot_mat;
 
         float point[] = transformPoint(eventx, eventy);
         float dx = 0 - point[0];
