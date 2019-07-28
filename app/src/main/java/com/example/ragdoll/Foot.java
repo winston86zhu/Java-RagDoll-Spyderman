@@ -74,11 +74,19 @@ public class Foot extends PartView implements IView {
 
     @Override
     public void drawseg(Canvas canvas) {
-        Bitmap l_foot = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.lfoot);
-        canvas.setMatrix(position_mat);
-        //canvas.drawRoundRect(Oval, 160, 200, paint);
-        canvas.drawBitmap(l_foot,null, Oval,paint);
+        if(type == -8) {
+            Bitmap l_foot = BitmapFactory.decodeResource(getResources(),
+                    R.mipmap.lfoot);
+            canvas.setMatrix(position_mat);
+            //canvas.drawRoundRect(Oval, 160, 200, paint);
+            canvas.drawBitmap(l_foot, null, Oval, paint);
+        } else  if (type == 8){
+            Bitmap r_foot = BitmapFactory.decodeResource(getResources(),
+                    R.mipmap.rfoot);
+            canvas.setMatrix(position_mat);
+            //canvas.drawRoundRect(Oval, 160, 200, paint);
+            canvas.drawBitmap(r_foot, null, Oval, paint);
+        }
     }
 
     @Override
