@@ -16,8 +16,8 @@ public class U_ARM extends PartView implements IView {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
-        width = 40;
-        height = 250;
+        width = 50;
+        height = 240;
         //float left, float top, float right, float bottom
         Oval = new RectF(-40, 0, width,height);
         length = (float)Math.sqrt((width * width + height * height));
@@ -29,14 +29,18 @@ public class U_ARM extends PartView implements IView {
             initDegree = -30;
         }
         degree = initDegree;
-        type = 3;
+        if(left_right) {
+            type = 3;
+        } else {
+            type = -3;
+        }
 
         if(left_right) {
-            x_pos = parent.x_pos + 15;
+            x_pos = parent.x_pos + 31;
         } else {
-            x_pos = parent.x_pos + parent.width - 15;
+            x_pos = parent.x_pos + parent.width - 31;
         }
-        y_pos = parent.y_pos + 60;
+        y_pos = parent.y_pos + 25;
 
 
         /*
@@ -54,9 +58,9 @@ public class U_ARM extends PartView implements IView {
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
         if(left_right) {
-            pivotq = new Pair<>(parent.x_pos + 15, parent.y_pos + 60); // neck position
+            pivotq = new Pair<>(parent.x_pos + 31, parent.y_pos + 25); // neck position
         } else {
-            pivotq = new Pair<>(parent.x_pos + parent.width - 15, parent.y_pos + 60); // neck position
+            pivotq = new Pair<>(parent.x_pos + parent.width - 31, parent.y_pos + 25); // neck position
         }
         return pivotq;
     }

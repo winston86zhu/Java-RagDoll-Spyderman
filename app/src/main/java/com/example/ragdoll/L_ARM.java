@@ -25,13 +25,17 @@ public class L_ARM extends PartView implements IView {
         rot_limit = 135;
         this.left_right = left_right;
         initDegree = parent.initDegree;
-        type = 4;
+        if(left_right) {
+            type = 4;
+        } else {
+            type = -4;
+        }
         degree = initDegree;
         rotate_diff = degree - parent.degree;
         length = (float)Math.sqrt((width * width + height * height));
 
-        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))));
-        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
+        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree)))) ;
+        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)))) ;
 
         /*
          * ********************Set Up init Matrix*******************/
@@ -53,7 +57,7 @@ public class L_ARM extends PartView implements IView {
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
             pivotq = new Pair<>((parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))))
-                    ,parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)))));
+                    ,parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)))) );
         return pivotq;
     }
 

@@ -1,6 +1,8 @@
 package com.example.ragdoll;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.RectF;
@@ -19,13 +21,17 @@ public class Foot extends PartView implements IView {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
-        width = 40;
+        width = 80;
         height = 120;
 
         Oval = new RectF(-20, 0, 20,height);
         rot_limit = 35;
         this.left_right = left_right;
-        type = 8;
+        if(left_right) {
+            type = 8;
+        }else {
+            type = -8;
+        }
         if(left_right) {
             initDegree = 90 + parent.degree;
         } else {
@@ -68,8 +74,11 @@ public class Foot extends PartView implements IView {
 
     @Override
     public void drawseg(Canvas canvas) {
+        Bitmap l_foot = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.lfoot);
         canvas.setMatrix(position_mat);
-        canvas.drawRoundRect(Oval, 160, 200, paint);
+        //canvas.drawRoundRect(Oval, 160, 200, paint);
+        canvas.drawBitmap(l_foot,null, Oval,paint);
     }
 
     @Override

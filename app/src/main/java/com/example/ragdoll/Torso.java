@@ -1,13 +1,15 @@
 package com.example.ragdoll;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
 public class Torso extends PartView implements IView {
-    float initX = 1200;
+    float initX = 600;
     float initY = 600;
 
     public Torso(Context c) {
@@ -40,7 +42,11 @@ public class Torso extends PartView implements IView {
     @Override
     public void drawseg(Canvas canvas) {
         canvas.setMatrix(position_mat);
-        canvas.drawRoundRect(Oval, 160, 200, paint);
+        Bitmap body_image = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.body);
+
+        canvas.drawBitmap(body_image,null, Oval,paint);
+        //canvas.drawRoundRect(Oval, 160, 200, paint);
         //float: The x-radius of the oval used to round the corners
         // float: The y-radius of the oval used to round the corners
         for (PartView c : sub_views) {

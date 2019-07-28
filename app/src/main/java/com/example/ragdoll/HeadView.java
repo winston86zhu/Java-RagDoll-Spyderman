@@ -32,7 +32,7 @@ public class HeadView extends PartView implements IView {
          * ********************Set Up init Matrix*******************/
         rot_mat = new Matrix(parent.position_mat);
         // Distance to translate
-        rot_mat.postTranslate((parent.width - width) / 2, -(height - 20));
+        rot_mat.postTranslate((parent.width - width) / 2, -(height - 40));
         x_pos = parent.x_pos;
         x_pos += (parent.width - width) / 2;
         y_pos = parent.y_pos;
@@ -49,7 +49,7 @@ public class HeadView extends PartView implements IView {
     public void rotate(float eventx, float eventy) {
         //Refresh Head
         rot_mat = new Matrix(parent.position_mat);
-        rot_mat.postTranslate((parent.width - width) / 2, -(height - 20));
+        rot_mat.postTranslate((parent.width - width) / 2, -(height - 40));
         //Refresh Pivot
 
         pivot = new Pair<>(parent.x_pos + parent.width / 2, parent.y_pos);

@@ -17,14 +17,18 @@ public class Hand extends PartView implements IView {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
-        width = 80;
-        height = 80;
+        width = 60;
+        height = 60;
 
         Oval = new RectF(-40, 0, width / 2,height);
         rot_limit = 35;
         this.left_right = left_right;
         initDegree = parent.initDegree;
-        type = 5;
+        if(left_right) {
+            type = 5;
+        } else {
+            type = -5;
+        }
         degree = initDegree;
         rotate_diff = degree - parent.degree;
 

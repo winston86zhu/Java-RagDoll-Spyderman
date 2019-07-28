@@ -25,7 +25,11 @@ public class Calf extends PartView implements IView {
         rot_limit = 90;
         this.left_right = left_right;
         initDegree = parent.initDegree;
-        type = 7;
+        if(left_right) {
+            type = 7;
+        }else {
+            type = -7;
+        }
         degree = initDegree;
         rotate_diff = degree - parent.degree;
         length = (float)Math.sqrt((width * width + height * height));

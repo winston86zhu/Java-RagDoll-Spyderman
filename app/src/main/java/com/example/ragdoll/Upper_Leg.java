@@ -29,12 +29,16 @@ public class Upper_Leg extends PartView implements IView {
             initDegree = -10;
         }
         degree = initDegree;
-        type = 6;
+        if(left_right) {
+            type = 6;
+        }else{
+            type = -6;
+        }
 
         if(left_right) {
-            x_pos = parent.x_pos + 60;
+            x_pos = parent.x_pos + 90;
         } else {
-            x_pos = parent.x_pos + parent.width - 60;
+            x_pos = parent.x_pos + parent.width - 90;
         }
         y_pos = parent.y_pos + parent.height - 60;
 
@@ -52,9 +56,9 @@ public class Upper_Leg extends PartView implements IView {
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
         if(left_right) {
-            pivotq = new Pair<>(parent.x_pos + 60, parent.y_pos + parent.height - 60); // neck position
+            pivotq = new Pair<>(parent.x_pos + 90, parent.y_pos + parent.height - 60); // neck position
         } else {
-            pivotq = new Pair<>(parent.x_pos + parent.width - 60, parent.y_pos + parent.height - 60); // neck position
+            pivotq = new Pair<>(parent.x_pos + parent.width - 90, parent.y_pos + parent.height - 60); // neck position
         }
         return pivotq;
     }

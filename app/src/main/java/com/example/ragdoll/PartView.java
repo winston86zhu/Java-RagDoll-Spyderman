@@ -49,10 +49,32 @@ public abstract class PartView extends View implements IView {
     public void drawseg(Canvas canvas) {
         canvas.setMatrix(position_mat);
         Bitmap kangoo = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.dora_head);
+                R.mipmap.face);
+        Bitmap uram_left = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.uarm_left);
+        Bitmap lram_left = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.larm_left);
+        Bitmap lhand = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.hand_left);
+        Bitmap l_thign = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.lthign);
+        Bitmap l_calf = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.lcalf);
+
         if(type == 2){
             canvas.drawBitmap(kangoo,null, Oval,paint);
-        } else {
+        } else if (type == 3){
+            canvas.drawBitmap(uram_left,null, Oval,paint);
+        }else if (type == 4){
+            canvas.drawBitmap(lram_left,null, Oval,paint);
+        }else if (type == 5){
+            canvas.drawBitmap(lhand,null, Oval,paint);
+        }else if (type == 6){
+            canvas.drawBitmap(l_thign,null, Oval,paint);
+        }else if (type == 7){
+            canvas.drawBitmap(l_calf,null, Oval,paint);
+        }
+        else {
             canvas.drawOval(Oval, paint);
         }
         for (PartView sub : sub_views) {
