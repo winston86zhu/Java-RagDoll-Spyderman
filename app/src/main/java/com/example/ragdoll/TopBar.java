@@ -29,15 +29,6 @@ public class TopBar extends View implements IView {
          clearButton = (ImageButton)this.backingView.findViewById(R.id.clear);
          aboutbutton = (ImageButton)this.backingView.findViewById(R.id.info);
 
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // model.reset_doll();
-                //rdv.reset();
-                Snackbar.make(backingView.getRootView(), "Reset RegDoll", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-               // model.notifyViews();
-            }
-        });
 
         aboutbutton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -33,6 +33,14 @@ public abstract class PartView extends View implements IView {
     public PartView parent = null;
     public Context context;
     public int type;
+    public Bitmap kangoo;
+    public Bitmap uram_left;
+    public Bitmap lram_left;
+    public Bitmap lhand;
+    public Bitmap l_thign;
+    public Bitmap l_calf;
+
+
 
 
     public PartView (Context c){
@@ -44,22 +52,23 @@ public abstract class PartView extends View implements IView {
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLACK);
+        kangoo = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.face);
+        uram_left = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.uarm_left);
+        lram_left = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.larm_left);
+        lhand = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.hand_left);
+        l_thign = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.lthign);
+        l_calf = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.lcalf);
     }
 
     public void drawseg(Canvas canvas) {
         canvas.setMatrix(position_mat);
-        Bitmap kangoo = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.face);
-        Bitmap uram_left = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.uarm_left);
-        Bitmap lram_left = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.larm_left);
-        Bitmap lhand = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.hand_left);
-        Bitmap l_thign = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.lthign);
-        Bitmap l_calf = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.lcalf);
+
 
         if(type == 2){
             canvas.drawBitmap(kangoo,null, Oval,paint);

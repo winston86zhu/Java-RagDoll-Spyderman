@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import java.security.PublicKey;
@@ -32,12 +33,15 @@ public class RagdollView extends View implements IView {
     public PartView selected;
     public Context context;
 
+    private ScaleGestureDetector mScaleDetector;
+    private float mScaleFactor = 1.f;
+
     public RagdollView(Context context, AttributeSet att) {
         super(context, att);
         init_all(context);
 
         add_all();
-
+        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public void reset(){
@@ -89,6 +93,9 @@ public class RagdollView extends View implements IView {
         float eventX = event.getX();
         float eventY = event.getY();
 
+        mScaleDetector.onTouchEvent(event);
+        //Scale responds to type 6 and 7
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 doll_x = eventX;
@@ -124,14 +131,28 @@ public class RagdollView extends View implements IView {
                 return false;
         }
         return true;
-
     }
 
+    private class ScaleListener
+            extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            mScaleFactor *= detector.getScaleFactor();
+
+            // Don't let the object get too small or too large.
+            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
+
+            invalidate();
+            return true;
+        }
+    }
 
 
     @Override
     public void onDraw(Canvas c) {
         torso.drawseg(c);
+        c.save();
+        c.scale(mScaleFactor, mScaleFactor);
     }
 
     @Override

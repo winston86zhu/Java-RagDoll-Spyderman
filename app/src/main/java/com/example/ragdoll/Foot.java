@@ -98,7 +98,6 @@ public class Foot extends PartView implements IView {
         double rad = Math.atan(dx/dy);
         float add_deg = (float)Math.toDegrees(rad);
         float temp_deg = degree + add_deg;
-        System.out.println(add_deg);
         if((temp_deg - initDegree )>= rot_limit || (temp_deg - initDegree ) <= -rot_limit) {
             add_deg = 0;
         }
