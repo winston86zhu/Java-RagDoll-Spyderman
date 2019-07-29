@@ -40,8 +40,8 @@ public class Calf extends PartView implements IView {
     public void update_mat(){
 //        height *= scale;
 //        length = (float)Math.sqrt((width * width + height * height));
-//        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))));
-//        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
+        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))));
+        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
         rot_mat = new Matrix();
         pivot = getPivot();
 
@@ -49,6 +49,7 @@ public class Calf extends PartView implements IView {
         rot_mat.postRotate(degree, pivot.first, pivot.second);
         //rot_mat.postScale(0,scale);
         position_mat = rot_mat;
+        invalidate();
 
     }
 
@@ -67,7 +68,7 @@ public class Calf extends PartView implements IView {
         double rad = Math.atan(dx/dy);
         float add_deg = (float)Math.toDegrees(rad);
         float temp_deg = degree + add_deg;
-        System.out.println(temp_deg);
+        //System.out.println(temp_deg);
         if((temp_deg - initDegree )>= rot_limit ||
                 (temp_deg - initDegree ) <= -rot_limit) {
             add_deg = 0;

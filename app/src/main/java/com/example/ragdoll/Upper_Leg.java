@@ -12,6 +12,27 @@ public class Upper_Leg extends PartView implements IView {
     Pair<Float, Float> pivot;
     public boolean left_right;
 
+    /*
+    Version Two Area*****************************
+     */
+    public Matrix initialMatrix() {
+        Matrix m = new Matrix();
+        float pivot[] = get_Pivot();
+        m.postTranslate(pivot[0], pivot[1]);
+        return m;
+    }
+
+    public float[] get_Pivot() {
+        float[] pivot = new float[2];
+        if (left_right) {
+            pivot[0] = parent.x_pos+parent.width/4;
+        } else {
+            pivot[0] = parent.x_pos+3*parent.width/4;
+        }
+        pivot[1] = parent.y_pos+parent.height;
+        return pivot;
+    }
+
     public Upper_Leg(Context c, PartView pv, boolean left_right) {
         super(c);
         parent = pv;
@@ -52,8 +73,9 @@ public class Upper_Leg extends PartView implements IView {
     @Override
     public void update_mat(){
         rot_mat = new Matrix();
-        height *= scale;
-        length = (float)Math.sqrt((width * width + height * height));
+        //height *= scale;
+        //length = (float)Math.sqrt((width * width + height * height));
+        length *= scale;
         pivot = getPivot();
 
         rot_mat.postRotate(initDegree, pivot.first, pivot.second);
@@ -92,7 +114,7 @@ public class Upper_Leg extends PartView implements IView {
             degree = (float) Math.toDegrees(rad);
 
         }
-        System.out.println(degree);
+        //System.out.println(degree);
         rot_mat.postRotate(degree, pivot.first,pivot.second);
         //position_mat.preConcat(rot_mat);
         position_mat = rot_mat;

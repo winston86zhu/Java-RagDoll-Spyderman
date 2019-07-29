@@ -102,17 +102,14 @@ public class RagdollView extends View implements IView {
                 for (PartView s : view_set) {
                     if (s.pointInside(eventX, eventY)) {
                         selected = s;
-
                         return true;
                     }
                 }
-                //return pointInside(eventX,eventY);
                 return false;
             case MotionEvent.ACTION_MOVE:
                 if(selected.type == 1) {
                     float dx = eventX - doll_x;
                     float dy = eventY - doll_y;
-
                     ((Torso)selected).translate(dx, dy);
                     doll_x = eventX;
                     doll_y = eventY;
@@ -138,7 +135,7 @@ public class RagdollView extends View implements IView {
         public boolean onScale(ScaleGestureDetector detector) {
            // mScaleFactor = selected.scale;
             System.out.println("The sclae factr is" + detector.getScaleFactor());
-            mScaleFactor = selected.scale * detector.getScaleFactor();
+            mScaleFactor = mScaleFactor * detector.getScaleFactor();
             System.out.println("Mscale factr is" + mScaleFactor);
 
             if(selected == null){
@@ -147,11 +144,12 @@ public class RagdollView extends View implements IView {
             if(selected.type == -6 || selected.type == 6){
                 selected.scale = mScaleFactor;
 
-                //selected.update_mat();
-                //selected.sub_views.get(0).update_mat();
-
-                selected.sub_views.get(0).scale = mScaleFactor;
+                selected.update_mat();
                 selected.sub_views.get(0).update_mat();
+
+               // selected.sub_views.get(0).scale = mScaleFactor;
+                //selected.sub_views.get(0).sub_views.get(0).scale = 1 / mScaleFactor;
+                //selected.sub_views.get(0).update_mat();
 
                 invalidate();
             } else if (selected.type == 7 || selected.type == -7){
@@ -167,7 +165,8 @@ public class RagdollView extends View implements IView {
             if(selected == null){
                 return false;
             }
-            if(selected.type == 6 || selected.type == -6 || selected.type == 7 || selected.type == -7){
+            if(selected.type == 6 || selected.type == -6
+                    || selected.type == 7 || selected.type == -7){
                 return true;
             }
             return false;
@@ -176,26 +175,18 @@ public class RagdollView extends View implements IView {
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
             super.onScaleEnd(detector);
-           // mScaleFactor = 1.f;
+            mScaleFactor = 1.f;
             //mScaleFactor = selected.scale;
-            selected.update_mat();
-
-
+            //selected.update_mat();
         }
     }
 
-
-
-
     @Override
     public void onDraw(Canvas c) {
+        c.scale(mScaleFactor, mScaleFactor);
         torso.drawseg(c);
         c.save();
-        c.scale(mScaleFactor, mScaleFactor);
     }
-
-
-
     @Override
     public void updateView() {
 
