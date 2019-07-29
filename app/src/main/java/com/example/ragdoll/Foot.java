@@ -74,6 +74,7 @@ public class Foot extends PartView implements IView {
         rot_mat.postRotate(degree, pivot.first, pivot.second);
         rot_mat.preTranslate(pivot.first, pivot.second);
         position_mat = rot_mat;
+        rotate(0);
 
     }
 

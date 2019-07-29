@@ -37,6 +37,9 @@ public abstract class PartView extends View implements IView {
     public Bitmap uram_left;
     public Bitmap lram_left;
     public Bitmap lhand;
+    public Bitmap uram_right;
+    public Bitmap lram_right;
+    public Bitmap rhand;
     public Bitmap l_thign;
     public Bitmap l_calf;
     public Bitmap r_thign;
@@ -64,6 +67,12 @@ public abstract class PartView extends View implements IView {
                 R.mipmap.larm_left);
         lhand = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.hand_left);
+        uram_right = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.uarm_right);
+        lram_right = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.larm_right);
+        rhand = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.hand_right);
         l_thign = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.lthign);
         l_calf = BitmapFactory.decodeResource(getResources(),
@@ -100,6 +109,12 @@ public abstract class PartView extends View implements IView {
             canvas.drawBitmap(r_thign,null, Oval,paint);
         }else if (type == -7){
             canvas.drawBitmap(r_calf,null, Oval,paint);
+        }else if (type == -3){
+            canvas.drawBitmap(uram_right,null, Oval,paint);
+        }else if (type == -4){
+            canvas.drawBitmap(lram_right,null, Oval,paint);
+        }else if (type == -5){
+            canvas.drawBitmap(rhand,null, Oval,paint);
         }
         else {
             canvas.drawOval(Oval, paint);

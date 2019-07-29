@@ -38,7 +38,7 @@ public class Upper_Leg extends PartView implements IView {
         parent = pv;
         pv.sub_views.add(this);
         width = 40;
-        height = 200;
+        height = 300;
         //float left, float top, float right, float bottom
 //        Oval = new RectF(-40, 0, width,height);
 //        length = (float)Math.sqrt((width * width + height * height));
@@ -61,7 +61,7 @@ public class Upper_Leg extends PartView implements IView {
         } else {
             x_pos = parent.x_pos + parent.width - 90;
         }
-        y_pos = parent.y_pos + parent.height - 60;
+        y_pos = parent.y_pos + parent.height - 80;
 
 
         /*
@@ -73,9 +73,6 @@ public class Upper_Leg extends PartView implements IView {
     @Override
     public void update_mat(){
         rot_mat = new Matrix();
-        //height *= scale;
-        //length = (float)Math.sqrt((width * width + height * height));
-        //length *= scale;
         pivot = getPivot();
         Oval = new RectF(-40, 0, width,height);
         length = (float)Math.sqrt((width * width + height * height));
@@ -88,9 +85,9 @@ public class Upper_Leg extends PartView implements IView {
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
         if(left_right) {
-            pivotq = new Pair<>(parent.x_pos + 90, parent.y_pos + parent.height - 60); // neck position
+            pivotq = new Pair<>(parent.x_pos + 90, parent.y_pos + parent.height - 80); // neck position
         } else {
-            pivotq = new Pair<>(parent.x_pos + parent.width - 90, parent.y_pos + parent.height - 60); // neck position
+            pivotq = new Pair<>(parent.x_pos + parent.width - 90, parent.y_pos + parent.height - 80); // neck position
         }
         return pivotq;
     }

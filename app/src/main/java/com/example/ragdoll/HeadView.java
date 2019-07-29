@@ -19,7 +19,7 @@ public class HeadView extends PartView implements IView {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
-        width = 200;
+        width = 150;
         height = 200;
         //float left, float top, float right, float bottom
         Oval = new RectF(0, 0, width,height);

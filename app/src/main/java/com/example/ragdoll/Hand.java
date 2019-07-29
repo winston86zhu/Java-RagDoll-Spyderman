@@ -17,7 +17,7 @@ public class Hand extends PartView implements IView {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
-        width = 60;
+        width = 40;
         height = 60;
 
         Oval = new RectF(-40, 0, width / 2,height);
@@ -42,6 +42,14 @@ public class Hand extends PartView implements IView {
         rot_mat.preTranslate(pivot.first, pivot.second);
         rot_mat.postRotate(degree, pivot.first, pivot.second);
         position_mat = rot_mat;
+
+        /*
+         **********************Pivot Rotation***********************/
+        position_mat = new Matrix(parent.position_mat);
+        Matrix local = new Matrix();
+        local.postTranslate(0, (float)(parent.height * 0.8));
+        position_mat.preConcat(local);
+        position_mat.preConcat(savedMatrix);
     }
 
     public Pair<Float,Float> getPivot(){
@@ -79,7 +87,7 @@ public class Hand extends PartView implements IView {
 
         position_mat = new Matrix(parent.position_mat);
         Matrix local = new Matrix();
-        local.postTranslate(0, parent.height);
+        local.postTranslate(0, (float)(parent.height * 0.8));
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
 
@@ -89,9 +97,10 @@ public class Hand extends PartView implements IView {
     public void rotate(float degree) {
         position_mat = new Matrix(parent.position_mat);
         Matrix local = new Matrix();
-        local.postTranslate(0, parent.height);
+        local.postTranslate(0, (float)(parent.height * 0.8));
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
+
 
     }
 }

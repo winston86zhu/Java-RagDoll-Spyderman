@@ -17,7 +17,7 @@ public class Torso extends PartView implements IView {
         x_pos = initX;
         y_pos = initY;
         width = 300;
-        height = 350;
+        height = 450;
         type = 1;
         Oval = new RectF(0, 0, width, height);
         position_mat = new Matrix();

@@ -45,9 +45,7 @@ public class RagdollView extends View implements IView {
         super(context, att);
         init_all(context);
         mActivePointers = new SparseArray<PointF>();
-
         add_all();
-       // mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public void reset(){
@@ -73,10 +71,17 @@ public class RagdollView extends View implements IView {
         right_calf = new Calf(context,right_leg_up, false);
         left_foot = new Foot(context,left_calf, true);
         right_foot = new Foot(context,right_calf, false);
+        left_calf.rotate(0);
+        right_calf.rotate(0);
+        left_foot.rotate(0);
+        right_foot.rotate(0);
+        right_hand.rotate(0);
+        left_hand.rotate(0);
         this.context = context;
     }
 
     public void add_all(){
+        view_set.add(torso);
         view_set.add(left_foot);
         view_set.add(right_foot);
         view_set.add(left_calf);
@@ -90,7 +95,7 @@ public class RagdollView extends View implements IView {
         view_set.add(right_arm);
         view_set.add(left_leg_up);
         view_set.add(right_leg_up);
-        view_set.add(torso);
+
     }
 
 

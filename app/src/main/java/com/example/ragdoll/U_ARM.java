@@ -36,9 +36,9 @@ public class U_ARM extends PartView implements IView {
         }
 
         if(left_right) {
-            x_pos = parent.x_pos + 31;
+            x_pos = parent.x_pos + 45;
         } else {
-            x_pos = parent.x_pos + parent.width - 31;
+            x_pos = parent.x_pos + parent.width - 45;
         }
         y_pos = parent.y_pos + 25;
 
@@ -58,9 +58,9 @@ public class U_ARM extends PartView implements IView {
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
         if(left_right) {
-            pivotq = new Pair<>(parent.x_pos + 31, parent.y_pos + 25); // neck position
+            pivotq = new Pair<>(parent.x_pos + 45, parent.y_pos + 25); // neck position
         } else {
-            pivotq = new Pair<>(parent.x_pos + parent.width - 31, parent.y_pos + 25); // neck position
+            pivotq = new Pair<>(parent.x_pos + parent.width - 45, parent.y_pos + 25); // neck position
         }
         return pivotq;
     }
@@ -68,17 +68,6 @@ public class U_ARM extends PartView implements IView {
     @Override
     public void rotate(float eventx, float eventy) {
         //Refresh Pivot
-//        float point[] = transformPoint(eventx, eventy);
-//        float dx = 0 - point[0];
-//        float dy = point[1] - 0;
-//        double rad = Math.atan(dx/dy);
-//        float degree = (float)Math.toDegrees(rad);
-//
-//
-//        pivot = getPivot();
-//        rot_mat = new Matrix();
-//        rot_mat.postRotate(degree, 0 , 0);
-//        position_mat.preConcat(rot_mat);
 
         pivot = getPivot();
         rot_mat = new Matrix();

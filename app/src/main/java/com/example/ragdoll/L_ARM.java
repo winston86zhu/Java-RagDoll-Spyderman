@@ -34,16 +34,8 @@ public class L_ARM extends PartView implements IView {
         rotate_diff = degree - parent.degree;
         length = (float)Math.sqrt((width * width + height * height));
 
-        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree)))) ;
-        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)))) ;
-
-        /*
-         * ********************Set Up init Matrix*******************/
-//        savedMatrix = new Matrix();
-//        position_mat = new Matrix(parent.position_mat);
-//        Matrix l_trans = new Matrix();
-//        l_trans.postTranslate(0, parent.height);
-//        position_mat.preConcat(l_trans);
+        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree)) * 1)) ;
+        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)) *1)) ;
 
         rot_mat = new Matrix();
         pivot = getPivot();
@@ -51,13 +43,21 @@ public class L_ARM extends PartView implements IView {
         rot_mat.preTranslate(pivot.first, pivot.second);
         rot_mat.postRotate(degree, pivot.first, pivot.second);
         position_mat = rot_mat;
+
+        /*
+        **********************Pivot Rotation***********************/
+        position_mat = new Matrix(parent.position_mat);
+        Matrix local = new Matrix();
+        local.postTranslate(0, (float)(parent.height * 0.8));
+        position_mat.preConcat(local);
+        position_mat.preConcat(savedMatrix);
     }
 
 
     public Pair<Float,Float> getPivot(){
         Pair<Float, Float> pivotq;
-            pivotq = new Pair<>((parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))))
-                    ,parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)))) );
+            pivotq = new Pair<>((parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree)) *1))
+                    ,parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree)) * 1)) );
         return pivotq;
     }
 
@@ -84,7 +84,7 @@ public class L_ARM extends PartView implements IView {
 
         position_mat = new Matrix(parent.position_mat);
         Matrix local = new Matrix();
-        local.postTranslate(0, parent.height);
+        local.postTranslate(0, (float)(parent.height * 0.8));
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
         sub_views.get(0).rotate(degree);
@@ -97,7 +97,7 @@ public class L_ARM extends PartView implements IView {
     public void rotate(float deg) {
         position_mat = new Matrix(parent.position_mat);
         Matrix local = new Matrix();
-        local.postTranslate(0, parent.height);
+        local.postTranslate(0, (float)(parent.height * 0.8));
         position_mat.preConcat(local);
         position_mat.preConcat(savedMatrix);
         sub_views.get(0).rotate(degree);

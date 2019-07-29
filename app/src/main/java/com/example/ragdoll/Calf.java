@@ -49,6 +49,13 @@ public class Calf extends PartView implements IView {
         rot_mat.preTranslate(pivot.first, pivot.second);
         position_mat = rot_mat;
 
+        /**************************Rotate Helper******************/
+        position_mat = new Matrix(parent.position_mat);
+        Matrix local = new Matrix();
+        local.postTranslate(0, parent.height);
+        position_mat.preConcat(local);
+        position_mat.preConcat(savedMatrix);
+
     }
 
     public Pair<Float,Float> getPivot(){
