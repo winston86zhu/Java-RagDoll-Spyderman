@@ -39,6 +39,9 @@ public abstract class PartView extends View implements IView {
     public Bitmap lhand;
     public Bitmap l_thign;
     public Bitmap l_calf;
+    public Bitmap r_thign;
+    public Bitmap r_calf;
+
     public float scale = 1;
 
 
@@ -65,6 +68,10 @@ public abstract class PartView extends View implements IView {
                 R.mipmap.lthign);
         l_calf = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.lcalf);
+        r_thign = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.rthigh);
+        r_calf = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.rcalf);
     }
 
     public void update_mat(){
@@ -73,7 +80,7 @@ public abstract class PartView extends View implements IView {
 
     public void drawseg(Canvas canvas) {
         canvas.setMatrix(position_mat);
-        canvas.scale(1, scale);
+        //canvas.scale(1, scale);
 
 
 
@@ -89,6 +96,10 @@ public abstract class PartView extends View implements IView {
             canvas.drawBitmap(l_thign,null, Oval,paint);
         }else if (type == 7){
             canvas.drawBitmap(l_calf,null, Oval,paint);
+        } else if (type == -6){
+            canvas.drawBitmap(r_thign,null, Oval,paint);
+        }else if (type == -7){
+            canvas.drawBitmap(r_calf,null, Oval,paint);
         }
         else {
             canvas.drawOval(Oval, paint);
@@ -139,6 +150,11 @@ public abstract class PartView extends View implements IView {
     public abstract void rotate(float eventx, float eventy);
 
     public abstract void rotate(float degree);
+
+    public void handle_scale(float distance){
+       // height += distance / 10;
+
+    };
 
 
 

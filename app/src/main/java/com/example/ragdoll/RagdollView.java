@@ -2,10 +2,14 @@ package com.example.ragdoll;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+
+import androidx.core.view.MotionEventCompat;
 
 import java.util.ArrayList;
 
@@ -31,6 +35,8 @@ public class RagdollView extends View implements IView {
     public float doll_y;
     public PartView selected;
     public Context context;
+    public boolean multi;
+    private SparseArray<PointF> mActivePointers;
 
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.f;
@@ -38,9 +44,10 @@ public class RagdollView extends View implements IView {
     public RagdollView(Context context, AttributeSet att) {
         super(context, att);
         init_all(context);
+        mActivePointers = new SparseArray<PointF>();
 
         add_all();
-        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
+       // mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public void reset(){
@@ -91,14 +98,33 @@ public class RagdollView extends View implements IView {
     public boolean onTouchEvent(MotionEvent event) {
         float eventX = event.getX();
         float eventY = event.getY();
-        mScaleDetector.onTouchEvent(event);
+       // mScaleDetector.onTouchEvent(event);
 
         //Scale responds to type 6 and 7
+        int action = event.getAction() & MotionEvent.ACTION_MASK;
+        int pointer_num = event.getPointerCount();
+        multi = false;
+        if(pointer_num > 1){
+            multi = true;
+        }
 
-        switch (event.getAction()) {
+        // get pointer index from the event object
+        int pointerIndex = event.getActionIndex();
+        // get pointer ID
+        int pointerId = event.getPointerId(pointerIndex);
+        // get masked (not specific to a pointer) action
+        int maskedAction = event.getActionMasked();
+
+
+
+        switch (maskedAction) {
             case MotionEvent.ACTION_DOWN:
                 doll_x = eventX;
                 doll_y = eventY;
+                PointF f = new PointF();
+                f.x = event.getX(pointerIndex);
+                f.y = event.getY(pointerIndex);
+                mActivePointers.put(pointerId, f);
                 for (PartView s : view_set) {
                     if (s.pointInside(eventX, eventY)) {
                         selected = s;
@@ -106,86 +132,85 @@ public class RagdollView extends View implements IView {
                     }
                 }
                 return false;
-            case MotionEvent.ACTION_MOVE:
-                if(selected.type == 1) {
-                    float dx = eventX - doll_x;
-                    float dy = eventY - doll_y;
-                    ((Torso)selected).translate(dx, dy);
-                    doll_x = eventX;
-                    doll_y = eventY;
-                    invalidate();
-                } else {
-                    selected.rotate(eventX,eventY);
-                    invalidate();
-                }
+            case MotionEvent.ACTION_POINTER_DOWN: {
+                // We have a new pointer. Lets add it to the list of pointers
+                PointF f1 = new PointF();
+                f1.x = event.getX(pointerIndex);
+                f1.y = event.getY(pointerIndex);
+                mActivePointers.put(pointerId, f1);
                 break;
+            }
+            case MotionEvent.ACTION_MOVE:
+                if(!multi) {
+                    if (selected.type == 1) {
+                        float dx = eventX - doll_x;
+                        float dy = eventY - doll_y;
+                        ((Torso) selected).translate(dx, dy);
+                        doll_x = eventX;
+                        doll_y = eventY;
+                    } else {
+                        selected.rotate(eventX, eventY);
+                    }
+                    break;
+                } else {
+                    float prev_deg = selected.degree;
+                    PointF point1 = mActivePointers.get(event.getPointerId(0));
+                    if (point1 != null) {
+                        point1.x = event.getX(0);
+                        point1.y = event.getY(0);
+                    }
+                    PointF point2 = mActivePointers.get(event.getPointerId(1));
+                    if (point2 != null) {
+                        point2.x = event.getX(1);
+                        point2.y = event.getY(1);
+                    }
+                    float distance;
+                    if(point2.y >= point1.y) {
+                        distance = (float) Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
+                    } else {
+                        distance = -(float) Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
+                    }
+                    System.out.println("The system has distance" + distance);
+                    if(selected.type == 6 || selected.type == -6){
+                        selected.height += distance / 20;
+                        selected.update_mat();
+                        selected.sub_views.get(0).update_mat();
+                        selected.degree = prev_deg;
+                        selected.sub_views.get(0).degree = prev_deg;
+                        selected.sub_views.get(0).sub_views.get(0).update_mat();
+                    } else if (selected.type == 7 || selected.type == -7){
+                        selected.height += distance / 20;
+                        selected.update_mat();
+                        selected.sub_views.get(0).update_mat();
+                        selected.degree = prev_deg;
+                        selected.sub_views.get(0).sub_views.get(0).update_mat();
+                    }
+                    //selected.rotate(point2.x, point2.y);
+
+
+                }
             case MotionEvent.ACTION_UP:
                 doll_x = eventX;
                 doll_y = eventY;
                 break;
+            case MotionEvent.ACTION_CANCEL: {
+                mActivePointers.remove(pointerId);
+                break;
+            }
             default:
                 return false;
         }
+        invalidate();
         return true;
     }
 
-    private class ScaleListener
-            extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-           // mScaleFactor = selected.scale;
-            System.out.println("The sclae factr is" + detector.getScaleFactor());
-            mScaleFactor = mScaleFactor * detector.getScaleFactor();
-            System.out.println("Mscale factr is" + mScaleFactor);
 
-            if(selected == null){
-                return false;
-            }
-            if(selected.type == -6 || selected.type == 6){
-                selected.scale = mScaleFactor;
-
-                selected.update_mat();
-                selected.sub_views.get(0).update_mat();
-
-               // selected.sub_views.get(0).scale = mScaleFactor;
-                //selected.sub_views.get(0).sub_views.get(0).scale = 1 / mScaleFactor;
-                //selected.sub_views.get(0).update_mat();
-
-                invalidate();
-            } else if (selected.type == 7 || selected.type == -7){
-                selected.scale = mScaleFactor;
-                selected.sub_views.get(0).scale = mScaleFactor;
-                invalidate();
-            }
-            return true;
-
-        }
-        @Override
-        public boolean onScaleBegin(ScaleGestureDetector scaleGestureDetector){
-            if(selected == null){
-                return false;
-            }
-            if(selected.type == 6 || selected.type == -6
-                    || selected.type == 7 || selected.type == -7){
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public void onScaleEnd(ScaleGestureDetector detector) {
-            super.onScaleEnd(detector);
-            mScaleFactor = 1.f;
-            //mScaleFactor = selected.scale;
-            //selected.update_mat();
-        }
-    }
 
     @Override
     public void onDraw(Canvas c) {
-        c.scale(mScaleFactor, mScaleFactor);
+       // c.scale(mScaleFactor, mScaleFactor);
         torso.drawseg(c);
-        c.save();
+       // c.save();
     }
     @Override
     public void updateView() {

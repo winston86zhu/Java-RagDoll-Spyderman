@@ -40,8 +40,8 @@ public class Upper_Leg extends PartView implements IView {
         width = 40;
         height = 200;
         //float left, float top, float right, float bottom
-        Oval = new RectF(-40, 0, width,height);
-        length = (float)Math.sqrt((width * width + height * height));
+//        Oval = new RectF(-40, 0, width,height);
+//        length = (float)Math.sqrt((width * width + height * height));
         rot_limit = 90;
         this.left_right = left_right;
         if(left_right) {
@@ -75,10 +75,12 @@ public class Upper_Leg extends PartView implements IView {
         rot_mat = new Matrix();
         //height *= scale;
         //length = (float)Math.sqrt((width * width + height * height));
-        length *= scale;
+        //length *= scale;
         pivot = getPivot();
+        Oval = new RectF(-40, 0, width,height);
+        length = (float)Math.sqrt((width * width + height * height));
 
-        rot_mat.postRotate(initDegree, pivot.first, pivot.second);
+        rot_mat.postRotate(degree, pivot.first, pivot.second);
         rot_mat.preTranslate(pivot.first, pivot.second);
         position_mat = rot_mat;
     }
@@ -124,6 +126,11 @@ public class Upper_Leg extends PartView implements IView {
 
     @Override
     public void rotate(float degree) {
+
+    }
+
+
+    public void handhandle_scale(float distance){
 
     }
 }

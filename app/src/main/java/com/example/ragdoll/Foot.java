@@ -15,6 +15,10 @@ public class Foot extends PartView implements IView {
     Pair<Float, Float> pivot;
     public boolean left_right;
     public float rotate_diff;
+    Bitmap l_foot = BitmapFactory.decodeResource(getResources(),
+            R.mipmap.lfoot);
+    Bitmap r_foot = BitmapFactory.decodeResource(getResources(),
+            R.mipmap.rfoot);
 
 
     public Foot(Context c, PartView pv, boolean left_right){
@@ -42,18 +46,12 @@ public class Foot extends PartView implements IView {
         x_pos = (parent.x_pos) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))));
         y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
 
+        rot_mat = new Matrix();
+        pivot = getPivot();
 
-//        rot_mat = new Matrix();
-//        pivot = getPivot();
-//        rot_mat.preTranslate(pivot.first, pivot.second);
-//        rot_mat.postRotate(degree, pivot.first, pivot.second);
-//        position_mat = rot_mat;
-
-        position_mat = new Matrix(parent.position_mat);
-        Matrix l_trans = new Matrix();
-        l_trans.postTranslate(0, parent.height);
-        position_mat.preConcat(l_trans);
-
+        rot_mat.preTranslate(pivot.first, pivot.second);
+        rot_mat.postRotate(degree, pivot.first, pivot.second);
+        position_mat = rot_mat;
 
         rot_mat = new Matrix();
         if(left_right) {
@@ -62,7 +60,21 @@ public class Foot extends PartView implements IView {
             rot_mat.postRotate(-90, 0, 0);
         }
         savedMatrix.postConcat(rot_mat);
-        position_mat.postConcat(savedMatrix);
+    }
+
+    @Override
+    public void update_mat(){
+        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))));
+        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
+        rot_mat = new Matrix();
+        pivot = getPivot();
+        Oval = new RectF(-20, 0, 20,height);
+        length = (float)Math.sqrt((width * width + height * height));
+
+        rot_mat.postRotate(degree, pivot.first, pivot.second);
+        rot_mat.preTranslate(pivot.first, pivot.second);
+        position_mat = rot_mat;
+
     }
 
     public Pair<Float,Float> getPivot(){
@@ -81,16 +93,11 @@ public class Foot extends PartView implements IView {
     @Override
     public void drawseg(Canvas canvas) {
         if(type == -8) {
-            Bitmap l_foot = BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.lfoot);
+
             canvas.setMatrix(position_mat);
-            //canvas.drawRoundRect(Oval, 160, 200, paint);
             canvas.drawBitmap(l_foot, null, Oval, paint);
-        } else  if (type == 8){
-            Bitmap r_foot = BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.rfoot);
+        } else if (type == 8){
             canvas.setMatrix(position_mat);
-            //canvas.drawRoundRect(Oval, 160, 200, paint);
             canvas.drawBitmap(r_foot, null, Oval, paint);
         }
     }
@@ -104,6 +111,7 @@ public class Foot extends PartView implements IView {
         double rad = Math.atan(dx/dy);
         float add_deg = (float)Math.toDegrees(rad);
         float temp_deg = degree + add_deg;
+        System.out.println(add_deg);
         if((temp_deg - initDegree )>= rot_limit || (temp_deg - initDegree ) <= -rot_limit) {
             add_deg = 0;
         }
