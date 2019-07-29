@@ -43,12 +43,17 @@ public class Foot extends PartView implements IView {
         y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
 
 
-        rot_mat = new Matrix();
-        pivot = getPivot();
+//        rot_mat = new Matrix();
+//        pivot = getPivot();
+//        rot_mat.preTranslate(pivot.first, pivot.second);
+//        rot_mat.postRotate(degree, pivot.first, pivot.second);
+//        position_mat = rot_mat;
 
-        rot_mat.preTranslate(pivot.first, pivot.second);
-        rot_mat.postRotate(degree, pivot.first, pivot.second);
-        position_mat = rot_mat;
+        position_mat = new Matrix(parent.position_mat);
+        Matrix l_trans = new Matrix();
+        l_trans.postTranslate(0, parent.height);
+        position_mat.preConcat(l_trans);
+
 
         rot_mat = new Matrix();
         if(left_right) {
@@ -57,6 +62,7 @@ public class Foot extends PartView implements IView {
             rot_mat.postRotate(-90, 0, 0);
         }
         savedMatrix.postConcat(rot_mat);
+        position_mat.postConcat(savedMatrix);
     }
 
     public Pair<Float,Float> getPivot(){

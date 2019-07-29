@@ -39,6 +39,7 @@ public abstract class PartView extends View implements IView {
     public Bitmap lhand;
     public Bitmap l_thign;
     public Bitmap l_calf;
+    public float scale = 1;
 
 
 
@@ -66,8 +67,14 @@ public abstract class PartView extends View implements IView {
                 R.mipmap.lcalf);
     }
 
+    public void update_mat(){
+
+    }
+
     public void drawseg(Canvas canvas) {
         canvas.setMatrix(position_mat);
+        canvas.scale(1, scale);
+
 
 
         if(type == 2){

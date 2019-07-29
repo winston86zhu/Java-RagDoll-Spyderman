@@ -31,17 +31,25 @@ public class Calf extends PartView implements IView {
             type = -7;
         }
         degree = initDegree;
-        rotate_diff = degree - parent.degree;
         length = (float)Math.sqrt((width * width + height * height));
 
-        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))));
-        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
+        update_mat();
+    }
+
+    @Override
+    public void update_mat(){
+//        height *= scale;
+//        length = (float)Math.sqrt((width * width + height * height));
+//        x_pos = (parent.x_pos ) - ((float)(parent.length * Math.sin(Math.toRadians(parent.degree))));
+//        y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
         rot_mat = new Matrix();
         pivot = getPivot();
 
         rot_mat.preTranslate(pivot.first, pivot.second);
         rot_mat.postRotate(degree, pivot.first, pivot.second);
+        //rot_mat.postScale(0,scale);
         position_mat = rot_mat;
+
     }
 
     public Pair<Float,Float> getPivot(){

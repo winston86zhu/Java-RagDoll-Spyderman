@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 import static java.lang.Math.min;
@@ -92,8 +91,8 @@ public class RagdollView extends View implements IView {
     public boolean onTouchEvent(MotionEvent event) {
         float eventX = event.getX();
         float eventY = event.getY();
-
         mScaleDetector.onTouchEvent(event);
+
         //Scale responds to type 6 and 7
 
         switch (event.getAction()) {
@@ -103,6 +102,7 @@ public class RagdollView extends View implements IView {
                 for (PartView s : view_set) {
                     if (s.pointInside(eventX, eventY)) {
                         selected = s;
+
                         return true;
                     }
                 }
@@ -111,7 +111,6 @@ public class RagdollView extends View implements IView {
             case MotionEvent.ACTION_MOVE:
                 if(selected.type == 1) {
                     float dx = eventX - doll_x;
-
                     float dy = eventY - doll_y;
 
                     ((Torso)selected).translate(dx, dy);
@@ -137,15 +136,55 @@ public class RagdollView extends View implements IView {
             extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            mScaleFactor *= detector.getScaleFactor();
+           // mScaleFactor = selected.scale;
+            System.out.println("The sclae factr is" + detector.getScaleFactor());
+            mScaleFactor = selected.scale * detector.getScaleFactor();
+            System.out.println("Mscale factr is" + mScaleFactor);
 
-            // Don't let the object get too small or too large.
-            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
+            if(selected == null){
+                return false;
+            }
+            if(selected.type == -6 || selected.type == 6){
+                selected.scale = mScaleFactor;
 
-            invalidate();
+                //selected.update_mat();
+                //selected.sub_views.get(0).update_mat();
+
+                selected.sub_views.get(0).scale = mScaleFactor;
+                selected.sub_views.get(0).update_mat();
+
+                invalidate();
+            } else if (selected.type == 7 || selected.type == -7){
+                selected.scale = mScaleFactor;
+                selected.sub_views.get(0).scale = mScaleFactor;
+                invalidate();
+            }
             return true;
+
+        }
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector scaleGestureDetector){
+            if(selected == null){
+                return false;
+            }
+            if(selected.type == 6 || selected.type == -6 || selected.type == 7 || selected.type == -7){
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+            super.onScaleEnd(detector);
+           // mScaleFactor = 1.f;
+            //mScaleFactor = selected.scale;
+            selected.update_mat();
+
+
         }
     }
+
+
 
 
     @Override
@@ -154,6 +193,8 @@ public class RagdollView extends View implements IView {
         c.save();
         c.scale(mScaleFactor, mScaleFactor);
     }
+
+
 
     @Override
     public void updateView() {

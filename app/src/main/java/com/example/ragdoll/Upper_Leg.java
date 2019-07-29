@@ -45,7 +45,15 @@ public class Upper_Leg extends PartView implements IView {
 
         /*
          * ********************Set Up init Matrix*******************/
+        update_mat();
+
+    }
+
+    @Override
+    public void update_mat(){
         rot_mat = new Matrix();
+        height *= scale;
+        length = (float)Math.sqrt((width * width + height * height));
         pivot = getPivot();
 
         rot_mat.postRotate(initDegree, pivot.first, pivot.second);
