@@ -178,9 +178,9 @@ public class RagdollView extends View implements IView {
                         break;
                     }*/
                     if(point2.y >= point1.y) {
-                        distance = (float) Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
-                    } else {
                         distance = -(float) Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
+                    } else {
+                        distance = (float) Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
                     }
                     System.out.println("The system has distance" + distance);
                     if(selected.type == 6 || selected.type == -6){
