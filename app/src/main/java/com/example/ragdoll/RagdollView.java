@@ -174,7 +174,9 @@ public class RagdollView extends View implements IView {
                     if(Math.abs(Math.abs(slope - Math.abs(selected.degree)) % 360) >20){
                         break;
                     }
-
+                    /*if(!selected.pointInside(point2.x, point2.y)){
+                        break;
+                    }*/
                     if(point2.y >= point1.y) {
                         distance = (float) Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
                     } else {
@@ -213,7 +215,7 @@ public class RagdollView extends View implements IView {
                         selected.update_mat();
                         selected.sub_views.get(0).update_mat();
                         selected.degree = prev_deg;
-                        selected.sub_views.get(0).sub_views.get(0).update_mat();
+
                     }
                 }
             case MotionEvent.ACTION_UP:

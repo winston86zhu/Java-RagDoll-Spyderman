@@ -146,7 +146,7 @@ public abstract class PartView extends View implements IView {
     }
 
 
-    /*Modify*/
+    /*Copy from Google Android Guideline*/
     public float[] transformPoint(float x, float y) {
         float point[] = {x, y};
         Matrix inverse = new Matrix(position_mat);
