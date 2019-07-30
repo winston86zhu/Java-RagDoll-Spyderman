@@ -81,20 +81,20 @@ public class RagdollView extends View implements IView {
     }
 
     public void add_all(){
-        view_set.add(torso);
+        view_set.add(left_arm);
+        view_set.add(right_arm);
+        view_set.add(left_arm_low);
+        view_set.add(right_arm_low);
+        view_set.add(left_hand);
+        view_set.add(right_hand);
         view_set.add(left_foot);
         view_set.add(right_foot);
         view_set.add(left_calf);
         view_set.add(right_calf);
-        view_set.add(left_hand);
-        view_set.add(right_hand);
-        view_set.add(left_arm_low);
-        view_set.add(right_arm_low);
         view_set.add(head);
-        view_set.add(left_arm);
-        view_set.add(right_arm);
         view_set.add(left_leg_up);
         view_set.add(right_leg_up);
+        view_set.add(torso);
 
     }
 
@@ -170,6 +170,11 @@ public class RagdollView extends View implements IView {
                         point2.y = event.getY(1);
                     }
                     float distance;
+                    float slope = (float)Math.toDegrees(Math.atan(Math.abs((point2.x - point1.x)/ (point2.y - point1.y))));
+                    if(Math.abs(Math.abs(slope - Math.abs(selected.degree)) % 360) >20){
+                        break;
+                    }
+
                     if(point2.y >= point1.y) {
                         distance = (float) Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
                     } else {
@@ -177,22 +182,39 @@ public class RagdollView extends View implements IView {
                     }
                     System.out.println("The system has distance" + distance);
                     if(selected.type == 6 || selected.type == -6){
-                        selected.height += distance / 20;
+                        if(selected.height + distance / 20 >= 450){
+                            selected.height = 450;
+                        }else if(selected.height + distance / 20 <= 150){
+                            selected.height = 150;
+                        } else {
+                            selected.height += distance / 20;
+                        }
                         selected.update_mat();
+                        if(selected.sub_views.get(0).height + distance / 20 >= 300){
+                            selected.sub_views.get(0).height = 300;
+                        }else if(selected.sub_views.get(0).height + distance / 20 <= 75){
+                            selected.sub_views.get(0).height = 75;
+                        } else {
+                            selected.sub_views.get(0).height += distance / 20;
+                        }
                         selected.sub_views.get(0).update_mat();
                         selected.degree = prev_deg;
                         selected.sub_views.get(0).degree = prev_deg;
                         selected.sub_views.get(0).sub_views.get(0).update_mat();
                     } else if (selected.type == 7 || selected.type == -7){
+                        if(selected.height + distance / 20 >= 300){
+                            selected.height = 300;
+                        }else if(selected.height + distance / 20 <= 75){
+                            selected.height = 75;
+                        } else {
+                            selected.height += distance / 20;
+                        }
                         selected.height += distance / 20;
                         selected.update_mat();
                         selected.sub_views.get(0).update_mat();
                         selected.degree = prev_deg;
                         selected.sub_views.get(0).sub_views.get(0).update_mat();
                     }
-                    //selected.rotate(point2.x, point2.y);
-
-
                 }
             case MotionEvent.ACTION_UP:
                 doll_x = eventX;
@@ -211,11 +233,13 @@ public class RagdollView extends View implements IView {
 
 
 
+
     @Override
     public void onDraw(Canvas c) {
        // c.scale(mScaleFactor, mScaleFactor);
         torso.drawseg(c);
-       // c.save();
+        //right_arm.drawseg(c);
+        c.save();
     }
     @Override
     public void updateView() {

@@ -70,7 +70,7 @@ public abstract class PartView extends View implements IView {
         uram_right = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.uarm_right);
         lram_right = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.larm_right);
+                R.mipmap.larm_right2);
         rhand = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.hand_right);
         l_thign = BitmapFactory.decodeResource(getResources(),
