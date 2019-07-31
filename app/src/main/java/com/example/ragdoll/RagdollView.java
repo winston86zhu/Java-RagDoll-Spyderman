@@ -171,7 +171,7 @@ public class RagdollView extends View implements IView {
                     }
                     float distance;
                     float slope = (float)Math.toDegrees(Math.atan(Math.abs((point2.x - point1.x)/ (point2.y - point1.y))));
-                    if(Math.abs(Math.abs(slope - Math.abs(selected.degree)) % 360) >20){
+                    if(Math.abs(Math.abs(slope - (360 - Math.abs(selected.degree))) % 360) >20){
                         break;
                     }
                     /*if(!selected.pointInside(point2.x, point2.y)){

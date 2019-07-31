@@ -45,7 +45,7 @@ public class Upper_Leg extends PartView implements IView {
         if(left_right) {
             initDegree = 10;
         } else {
-            initDegree = -10;
+            initDegree = 350;
         }
         degree = initDegree;
         if(left_right) {
