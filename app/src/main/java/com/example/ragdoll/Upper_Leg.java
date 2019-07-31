@@ -40,8 +40,6 @@ public class Upper_Leg extends PartView implements IView {
         width = 40;
         height = 300;
         //float left, float top, float right, float bottom
-//        Oval = new RectF(-40, 0, width,height);
-//        length = (float)Math.sqrt((width * width + height * height));
         rot_limit = 90;
         this.left_right = left_right;
         if(left_right) {

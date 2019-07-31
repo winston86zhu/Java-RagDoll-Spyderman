@@ -25,7 +25,7 @@
 
         <Space
             android:id="@+id/top_bar_space"
-            android:layout_width="1030dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content" />
 
         <ImageButton

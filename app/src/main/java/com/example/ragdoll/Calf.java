@@ -18,10 +18,10 @@ public class Calf extends PartView implements IView {
         super(c);
         parent = pv;
         pv.sub_views.add(this);
-        width = 60;
+        width = 80;
         height = 150;
         //float left, float top, float right, float bottom
-        Oval = new RectF(-30, 0, 30,height);
+        Oval = new RectF(-40, 0, 40,height);
         rot_limit = 90;
         this.left_right = left_right;
         initDegree = parent.initDegree;
@@ -42,7 +42,7 @@ public class Calf extends PartView implements IView {
         y_pos = parent.y_pos + ((float)(parent.length * Math.cos(Math.toRadians(parent.degree))));
         rot_mat = new Matrix();
         pivot = getPivot();
-        Oval = new RectF(-30, 0, 30,height);
+        Oval = new RectF(-40, 0, 40,height);
         length = (float)Math.sqrt((width * width + height * height));
 
         rot_mat.postRotate(degree, pivot.first, pivot.second);
