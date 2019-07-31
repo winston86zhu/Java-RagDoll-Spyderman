@@ -44,6 +44,7 @@ public abstract class PartView extends View implements IView {
     public Bitmap l_calf;
     public Bitmap r_thign;
     public Bitmap r_calf;
+    public boolean left_right = false;
 
     public float scale = 1;
 

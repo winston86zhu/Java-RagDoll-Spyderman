@@ -10,7 +10,6 @@ public class Calf extends PartView implements IView {
     public Matrix rot_mat;
     private Matrix savedMatrix = new Matrix();
     Pair<Float, Float> pivot;
-    public boolean left_right;
     public float rotate_diff;
 
 

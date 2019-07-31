@@ -10,7 +10,7 @@ public class Upper_Leg extends PartView implements IView {
     public Matrix rot_mat;
     private Matrix savedMatrix = new Matrix(rot_mat);
     Pair<Float, Float> pivot;
-    public boolean left_right;
+
 
     /*
     Version Two Area*****************************
